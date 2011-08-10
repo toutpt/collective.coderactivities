@@ -22,11 +22,23 @@ class IAction(interface.Interface):
 
     date = schema.Datetime(title=u"Date of the action")
 
-class ActionView(BrowserView):
-    """Default view for action"""
+class IActionProvider(interface.Interface):
+    """action provider"""
+    def ids():
+        """Return action ids"""
+    
+    def get(id):
+        """return IAction object defined by id"""
+        
+    def actions():
+        """return actions"""
 
-class IActionManager(interface.Interface):
-    """Manage actions"""
+    def search(query={}):
+        """Search actions. query is a catalog queries"""
+
+    
+class IPersistentActionProvider(interface.Interface):
+    """a persistent action provider can add/remove/update actions"""
     
     def add(info):
         """Add an action. info must be a dict or an IAction object"""
@@ -34,22 +46,39 @@ class IActionManager(interface.Interface):
     def remove(id):
         """Remove an action based on its id"""
     
-    def get(id):
-        """Return the action by it's id"""
+
+class IActionManager(IActionProvider):
+    """Manage actions"""
     
-    def search(query={}):
-        """Search actions. query is a catalog queries"""
+    def providers():
+        """Return the list of providers"""
 
-    def actions():
-        """Return an iterator on all action"""
+class ActionView(BrowserView):
+    """Default view for action"""
 
-class ActionManager(BrowserView):
-    """Dexterity action manager"""
-    interface.implements(IActionManager)
+
+class ActionPersistentProvider(BrowserView):
+    """View over a Dexterity action container"""
+    interface.implements(IPersistentActionProvider)
+
+    def __init__(self, context, request):
+        super(ActionPersistentProvider, self).__init__(context, request)
+        self._actions = []
 
     def get(self, id):
         return getattr(self.context, id, None)
 
+    def ids(self):
+        return self.context.objectIds()
+
+    def actions():
+        if self._actions is None:
+            self.update()
+        return self._actions
+    
+    def update(self):
+        pass
+    
     def add(self, info):
         context = self.context
         if type(info) == dict:

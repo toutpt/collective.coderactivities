@@ -5,14 +5,16 @@
  <!-- Basic information -->
  <property name="title">RSS</property>
  <property name="description" i18n:translate="">A feed to stay up to date with the community</property>
- <property name="content_icon"></property>
+ <property name="content_icon">folder_icon.gif</property>
  <property name="global_allow">False</property>
  <property name="allow_discussion">False</property>
  
  <property name="filter_content_types">True</property>
- <property name="allowed_content_types"/>
- 
- <property name="klass">plone.dexterity.content.Item</property>
+ <property name="allowed_content_types">
+     <element value="collective.coderactivities.action" />
+ </property>
+
+ <property name="klass">plone.dexterity.content.Container</property>
  <property name="add_permission">cmf.AddPortalContent</property>
  
  <property name="schema">collective.coderactivities.rss.IRSS</property>

@@ -6,7 +6,7 @@ from zope import interface
 from zope import schema
 from Products.Five.browser import BrowserView
 
-from collective.coderactivities.action import IActionManager
+from collective.coderactivities import action
 from collective.coderactivities import vocabulary
 
 class IRSS(interface.Interface):
@@ -17,31 +17,20 @@ class IRSS(interface.Interface):
     kind = schema.Choice(title=u"Kind",
                          vocabulary=vocabulary.kind)
 
-class RSSView(BrowserView):
+class RSSView(action.ActionPersistentProvider):
     """Default mailing list view"""
+    interface.implements(action.IActionProvider)
 
     def __init__(self, context, request):
         super(RSSView, self).__init__(context, request)
         self.entries = []
 
     def update(self):
+        #Todo: add cache for 10 minutes
         url = self.context.url
         feed = feedparser.parse(url)
         self.entries = feed['entries']
-        self.actions()
-    
-    def project(self):
-        context = self.context
-        while context.portal_type not in ('Plone Site', 'collective.coderactivities.project'):
-            context = context.aq_parent
-        
-        if context.portal_type == 'Plone Site':
-            raise KeyError('can t find project')
 
-        return context
-
-    def actions(self):
-        """Import entries into actions"""
 # planet plone
 #        ['updated', 'published_parsed', 'updated_parsed', 'links', 'title',
 #         'feedburner_origlink', 'authors', 'summary', 'content', 'source',
@@ -53,10 +42,7 @@ class RSSView(BrowserView):
 #'author_detail', 'id']
         entries = self.entries
         project = self.project()
-        action_manager = component.queryMultiAdapter((project, self.request),
-                                                     name="action_manager")
-        if not action_manager:
-            return
+
         plone_utils = self.context.plone_utils
         kind = self.context.kind
 
@@ -76,7 +62,7 @@ class RSSView(BrowserView):
                 info['description'] = entry['summary']
             info['id'] = plone_utils.normalizeString(entry['id'])
             if len(info.keys())==5:
-                action_manager.add(info)
+                self._actions.append(self.add(info))
             else:
                 self.context.plone_log('incomplete data: %s'%info)
                 

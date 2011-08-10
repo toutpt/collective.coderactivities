@@ -31,17 +31,10 @@
     permission="zope2.View"
     />
   <browser:page
-    for="collective.coderactivities.mailinglist.IMailingList"
-    name="mailinglist_view"
-    class=".mailinglist.MailingListView"
-    template="templates/mailinglist_view.pt"
-    permission="zope2.View"
-    />
-  <browser:page
-    for="collective.coderactivities.repository.IRepository"
-    name="repository_view"
-    class=".repository.RepositoryView"
-    template="templates/repository_view.pt"
+    for="collective.coderactivities.imap.IIMAP"
+    name="imap_view"
+    class=".imap.IMAPView"
+    template="templates/imap_view.pt"
     permission="zope2.View"
     />
   <browser:page
@@ -53,12 +46,6 @@
     />
 
   <include package="Products.CMFPlone" />
-  <browser:page
-    for="collective.coderactivities.project.IProject"
-    name="action_manager"
-    class=".action.ActionManager"
-    permission="cmf.ModifyPortalContent"
-    />
 
   <subscriber
     for="collective.coderactivities.action.IAction
