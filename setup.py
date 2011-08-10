@@ -27,6 +27,7 @@ setup(name='collective.coderactivities',
           'setuptools',
           # -*- Extra requirements: -*-
           'plone.app.dexterity',
+          'feedparser',
           'collective.configviews',
       ],
       entry_points="""

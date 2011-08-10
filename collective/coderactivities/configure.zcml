@@ -17,11 +17,64 @@
       />
   <!-- -*- extra stuff goes here -*- -->
   <browser:page
-    for="collective.coderactivities.interfaces.IAction"
-    name="action_view"
-    class=".action.ActionView"
-    template="action_templates/view.pt"
+    for="collective.coderactivities.project.IProject"
+    name="project_view"
+    class=".project.ProjectView"
+    template="templates/action_view.pt"
     permission="zope2.View"
     />
+  <browser:page
+    for="collective.coderactivities.action.IAction"
+    name="action_view"
+    class=".action.ActionView"
+    template="templates/action_view.pt"
+    permission="zope2.View"
+    />
+  <browser:page
+    for="collective.coderactivities.mailinglist.IMailingList"
+    name="mailinglist_view"
+    class=".mailinglist.MailingListView"
+    template="templates/mailinglist_view.pt"
+    permission="zope2.View"
+    />
+  <browser:page
+    for="collective.coderactivities.repository.IRepository"
+    name="repository_view"
+    class=".repository.RepositoryView"
+    template="templates/repository_view.pt"
+    permission="zope2.View"
+    />
+  <browser:page
+    for="collective.coderactivities.rss.IRSS"
+    name="rss_view"
+    class=".rss.RSSView"
+    template="templates/rss_view.pt"
+    permission="zope2.View"
+    />
+
+  <include package="Products.CMFPlone" />
+  <browser:page
+    for="collective.coderactivities.project.IProject"
+    name="action_manager"
+    class=".action.ActionManager"
+    permission="cmf.ModifyPortalContent"
+    />
+
+  <subscriber
+    for="collective.coderactivities.action.IAction
+         zope.lifecycleevent.IObjectCreatedEvent"
+    handler=".action.reindex" />
+  <subscriber
+    for="collective.coderactivities.action.IAction
+         zope.lifecycleevent.IObjectModifiedEvent"
+    handler=".action.reindex" />
+  <subscriber
+    for="collective.coderactivities.action.IAction
+         zope.lifecycleevent.IObjectRemovedEvent"
+    handler=".action.reindex" />
+  <subscriber
+    for="collective.coderactivities.action.IAction
+         zope.lifecycleevent.IObjectMovedEvent"
+    handler=".action.reindex" />
 
 </configure>

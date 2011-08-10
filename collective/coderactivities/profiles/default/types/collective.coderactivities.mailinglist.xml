@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
-<object name="collective.coderactivities.action" meta_type="Dexterity FTI"
+<object name="collective.coderactivities.mailinglist" meta_type="Dexterity FTI"
    xmlns:i18n="http://xml.zope.org/namespaces/i18n" i18n:domain="collective.coderactivities">
  
  <!-- Basic information -->
- <property name="title">Action</property>
- <property name="description" i18n:translate="">An action done by someone on a project</property>
+ <property name="title">Mailing List</property>
+ <property name="description" i18n:translate="">A place to discuss on a topic of a project</property>
  <property name="content_icon"></property>
  <property name="global_allow">False</property>
  <property name="allow_discussion">False</property>
@@ -15,17 +15,19 @@
  <property name="klass">plone.dexterity.content.Item</property>
  <property name="add_permission">cmf.AddPortalContent</property>
  
- <property name="schema">collective.coderactivities.action.IAction</property>
+ <property name="schema">collective.coderactivities.mailinglist.IMailingList</property>
  
  <!-- List of enabled behaviors -->
  <property name="behaviors">
+     <element value="plone.app.dexterity.behaviors.metadata.IDublinCore" />
+     <element value="plone.app.content.interfaces.INameFromTitle" />
  </property>
  
  <!-- View information -->
- <property name="default_view">action_view</property>
+ <property name="default_view">mailinglist_view</property>
  <property name="default_view_fallback">False</property>
  <property name="view_methods">
-  <element value="action_view"/>
+  <element value="mailinglist_view"/>
  </property>
  
  <!-- Method aliases -->

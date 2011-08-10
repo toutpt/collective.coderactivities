@@ -8,18 +8,14 @@
 <body>
 
 <metal:main fill-slot="main">
-    <tal:main-macro metal:define-macro="main"
-           tal:define="text context/body">
+    <tal:main-macro metal:define-macro="main">
 
         <div tal:replace="structure provider:plone.abovecontenttitle" />
-
-        <h1 class="documentFirstHeading" tal:content="view/title" />
 
         <div tal:replace="structure provider:plone.belowcontenttitle" />
 
         <div tal:replace="structure provider:plone.abovecontentbody" />
 
-        <p class="documentDescription" tal:content="structure view/description" />
 
         <div tal:replace="structure provider:plone.belowcontentbody" />
 

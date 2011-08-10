@@ -24,6 +24,7 @@ from Products.CMFCore.CatalogTool import _mergedLocalRoles
 from Products.CMFCore.CatalogTool import CatalogTool as BaseTool
 from Products.CMFCore.permissions import AccessInactivePortalContent
 from Products.ZCatalog.ZCatalog import ZCatalog
+
 from zope.component import queryMultiAdapter
 from zope.interface import Interface
 from zope.interface import implements
@@ -46,6 +47,14 @@ def kind(obj):
     """
     return obj.kind
 
+@indexer(action.IAction)
+def author(obj):
+    return obj.author
+
+@indexer(action.IAction)
+def date(obj):
+    return obj.date
+
 class IActionCatalogTool(Interface):
     """Interface marker"""
 
@@ -58,7 +67,7 @@ class CatalogTool(PloneBaseTool, BaseTool):
     security = ClassSecurityInfo()
     toolicon = 'skins/plone_images/book_icon.png'
     _counter = None
-
+    id = 'portal_actions_catalog'
     manage_catalogAdvanced = DTMLFile('www/catalogAdvanced', globals())
 
     manage_options = (

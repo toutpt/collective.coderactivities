@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
-<object name="collective.coderactivities.action" meta_type="Dexterity FTI"
+<object name="collective.coderactivities.rss" meta_type="Dexterity FTI"
    xmlns:i18n="http://xml.zope.org/namespaces/i18n" i18n:domain="collective.coderactivities">
  
  <!-- Basic information -->
- <property name="title">Action</property>
- <property name="description" i18n:translate="">An action done by someone on a project</property>
+ <property name="title">RSS</property>
+ <property name="description" i18n:translate="">A feed to stay up to date with the community</property>
  <property name="content_icon"></property>
  <property name="global_allow">False</property>
  <property name="allow_discussion">False</property>
@@ -15,17 +15,19 @@
  <property name="klass">plone.dexterity.content.Item</property>
  <property name="add_permission">cmf.AddPortalContent</property>
  
- <property name="schema">collective.coderactivities.action.IAction</property>
+ <property name="schema">collective.coderactivities.rss.IRSS</property>
  
  <!-- List of enabled behaviors -->
  <property name="behaviors">
+     <element value="plone.app.dexterity.behaviors.metadata.IDublinCore" />
+     <element value="plone.app.content.interfaces.INameFromTitle" />
  </property>
  
  <!-- View information -->
- <property name="default_view">action_view</property>
+ <property name="default_view">rss_view</property>
  <property name="default_view_fallback">False</property>
  <property name="view_methods">
-  <element value="action_view"/>
+  <element value="rss_view"/>
  </property>
  
  <!-- Method aliases -->
