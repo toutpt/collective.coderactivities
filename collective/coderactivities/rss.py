@@ -30,6 +30,8 @@ class RSSView(action.ActionPersistentProvider):
         url = self.context.url
         feed = feedparser.parse(url)
         self.entries = feed['entries']
+        for entry in self.entries:
+            self.build_action(entry)
 
 # planet plone
 #        ['updated', 'published_parsed', 'updated_parsed', 'links', 'title',
@@ -40,29 +42,26 @@ class RSSView(action.ActionPersistentProvider):
 #['updated', 'updated_parsed', 'links', 'title', 'author', 'media_thumbnail',
 #'summary', 'content', 'title_detail', 'href', 'link', 'authors',
 #'author_detail', 'id']
-        entries = self.entries
-        project = self.project()
 
-        plone_utils = self.context.plone_utils
+
+    def build_action(self, entry):
+        
         kind = self.context.kind
+        info = {'kind':kind}
+        author = None
+        if 'author' in entry:
+            info['author'] = entry['author']
 
-        for entry in entries:
-            info = {'kind':kind}
-            author = None
-            if 'author' in entry:
-                info['author'] = entry['author']
-                
-            date = None
-            if 'updated_parsed' in entry:
-                tmp = entry['updated_parsed']
-                date = datetime(tmp[0],tmp[1],tmp[2],tmp[3],tmp[4])
-                info['date'] = date
-            description = None
-            if 'summary' in entry:
-                info['description'] = entry['summary']
-            info['id'] = plone_utils.normalizeString(entry['id'])
-            if len(info.keys())==5:
-                self._actions.append(self.add(info))
-            else:
-                self.context.plone_log('incomplete data: %s'%info)
-                
+        date = None
+        if 'updated_parsed' in entry:
+            tmp = entry['updated_parsed']
+            date = datetime(tmp[0],tmp[1],tmp[2],tmp[3],tmp[4])
+            info['date'] = date
+        description = None
+        if 'summary' in entry:
+            info['description'] = entry['summary']
+        info['id'] = entry['id']
+        if len(info.keys())==5:
+            self._actions.append(self.add(info))
+        else:
+            self.context.plone_log('incomplete data: %s'%info)

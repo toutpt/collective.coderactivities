@@ -38,6 +38,20 @@
     permission="zope2.View"
     />
   <browser:page
+    for="collective.coderactivities.imap.IIMAP"
+    name="imap_plone_svn_commit_view"
+    class=".imap.PloneSVNCommitActionBuilder"
+    template="templates/imap_view.pt"
+    permission="zope2.View"
+    />
+  <browser:page
+    for="*"
+    name="doc_imap_view"
+    class=".imap.DocIMAPView"
+    template="templates/doc_imap_view.pt"
+    permission="zope2.View"
+    />
+  <browser:page
     for="collective.coderactivities.rss.IRSS"
     name="rss_view"
     class=".rss.RSSView"
@@ -64,4 +78,9 @@
          zope.lifecycleevent.IObjectMovedEvent"
     handler=".action.reindex" />
 
+  <utility
+    component=".vocabulary.ExtractorVocabulary"
+    name="collective.coderactivities.vocabulary.extractor"
+    />
+    
 </configure>

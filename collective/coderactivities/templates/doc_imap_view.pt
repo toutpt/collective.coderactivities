@@ -1,0 +1,35 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="collective.coderactivities">
+<body>
+
+<metal:main fill-slot="main">
+    <tal:main-macro metal:define-macro="main">
+
+<h1>Search criterion documentation</h1>
+
+<p i18n:translate="">Criterion must be written with TYPE "value" TYPE "value" pattern</p>
+
+<p i18n:translate="">The list of types with description taken from <a title="rfc" href="http://tools.ietf.org/html/rfc1730.html#section-6.4.4">RFC 1730 section 6.4.4 search command</a></p>
+         
+<table border="1">
+ <tr>
+  <th>Criteria</th>
+  <th>Description</th>
+ </tr>
+ <tr tal:repeat="criteria view/criterion">
+  <td><b tal:content="python:criteria['arg']">ALL</b></td>
+  <td tal:content="python:criteria['description']">Description</td>
+ </tr>
+</table>
+
+
+    </tal:main-macro>
+</metal:main>
+
+</body>
+</html>

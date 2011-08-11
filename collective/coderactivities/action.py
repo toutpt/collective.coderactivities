@@ -1,3 +1,4 @@
+from zope import component
 from zope import event
 from zope import interface
 from zope import schema
@@ -77,7 +78,7 @@ class ActionPersistentProvider(BrowserView):
         return self._actions
     
     def update(self):
-        pass
+        raise NotImplementedError
     
     def add(self, info):
         context = self.context
@@ -89,11 +90,13 @@ class ActionPersistentProvider(BrowserView):
             raise Exception()
         
         #try to get it first:
-        action = self.get(info['id'])
+        plone_utils = self.context.plone_utils
+        nid = plone_utils.normalizeString(info['id'])
+        action = self.get(nid)
         if action is None:
-            context.invokeFactory(id=info['id'],
+            context.invokeFactory(id=nid,
                                    type_name='collective.coderactivities.action')
-            action = self.get(info['id'])
+            action = self.get(nid)
             evt = lifecycleevent.ObjectCreatedEvent(action)
             event.notify(evt)
         action.kind = info['kind']
@@ -111,7 +114,8 @@ class ActionPersistentProvider(BrowserView):
         return brains
 
 def index(obj, evt):
-    catalog = getToolByName(obj, 'portal_actions_catalog')
+    site = component.getSiteManager()
+    catalog = getToolByName(site, 'portal_actions_catalog')
     catalog.catalog_object(obj)
 
 def reindex(obj, evt):
@@ -119,5 +123,6 @@ def reindex(obj, evt):
     index(obj,evt)
 
 def unindex(obj, evt):
-    catalog = getToolByName(obj, 'portal_actions_catalog')
+    site = component.getSiteManager()
+    catalog = getToolByName(site, 'portal_actions_catalog')
     catalog.uncatalog_object(obj)
