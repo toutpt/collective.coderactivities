@@ -1,6 +1,7 @@
 <object name="portal_types">
  <object name="collective.coderactivities.project" meta_type="Dexterity FTI" />
  <object name="collective.coderactivities.action" meta_type="Dexterity FTI" />
- <object name="collective.coderactivities.imap" meta_type="Dexterity FTI" />
+ <object name="collective.coderactivities.coder" meta_type="Dexterity FTI" />
  <object name="collective.coderactivities.rss" meta_type="Dexterity FTI" />
+ <object name="collective.coderactivities.github" meta_type="Dexterity FTI" />
 </object>

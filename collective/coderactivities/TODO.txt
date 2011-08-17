@@ -1,4 +1,23 @@
-* add event handler to index action in action catalog
+[done] * add event handler to index action in action catalog
 * start a global project view
 * add action to import repository url from github user (aka organisation)
 * add graphics
+
+
+action provider base view
+=========================
+
+a database of action should show:
+
+number of actions
+-----------------
+
+X: date
+Y: amount
+
+configuration for current page (request): the year,the month, the user, the kind [multi select]
+
+
+
+
+

@@ -10,15 +10,19 @@
 <metal:main fill-slot="main">
     <tal:main-macro metal:define-macro="main">
 
-        <div tal:replace="structure provider:plone.abovecontenttitle" />
-
-        <div tal:replace="structure provider:plone.belowcontenttitle" />
-
-        <div tal:replace="structure provider:plone.abovecontentbody" />
-
-
-        <div tal:replace="structure provider:plone.belowcontentbody" />
-
+<table>
+  <tr>
+    <th>author</th>
+    <th>kind</th>
+    <th>date</th>
+  </tr>
+  <tr>
+    <td tal:content="here/author"></td>
+    <td tal:content="here/kind"></td>
+    <td tal:content="here/date"></td>
+  </tr>
+</table>
+<div tal:replace="structure here/description"></div>
     </tal:main-macro>
 </metal:main>
 

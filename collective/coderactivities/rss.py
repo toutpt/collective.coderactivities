@@ -4,12 +4,15 @@ from datetime import datetime
 from zope import component
 from zope import interface
 from zope import schema
+
+from plone.directives import form
+
 from Products.Five.browser import BrowserView
 
 from collective.coderactivities import action
 from collective.coderactivities import vocabulary
 
-class IRSS(interface.Interface):
+class IRSS(action.IPersistentActionProvider):
     """A mailing list to discuss on a topic of a project"""
     
     url = schema.URI(title=u"RSS URL")
@@ -26,6 +29,11 @@ class RSSView(action.ActionPersistentProvider):
         self.entries = []
 
     def update(self):
+        self._actions = self.context.objectValues()
+
+class RSSUpdateView(RSSView):
+
+    def __call__(self):
         #Todo: add cache for 10 minutes
         url = self.context.url
         feed = feedparser.parse(url)

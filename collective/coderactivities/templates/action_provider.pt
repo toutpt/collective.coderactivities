@@ -1,0 +1,52 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="collective.coderactivities">
+<body>
+
+<metal:main fill-slot="main">
+    <tal:main-macro metal:define-macro="main">
+
+<h1 tal:content="here/Title"></h1>
+
+<p>Activities can be filter on a range of date or by author</p>
+<select name="activity.year:record">
+ <option>2008</option>
+ <option>2009</option>
+ <option>2010</option>
+ <option selected="selected">2011</option>
+</select>
+<select name="activity.month:record">
+ <option>01</option>
+ <option>02</option>
+ <option>03</option>
+ <option>04</option>
+ <option>05</option>
+ <option>06</option>
+ <option>07</option>
+ <option selected="selected">08</option>
+ <option>09</option>
+ <option>10</option>
+ <option>11</option>
+ <option>12</option>
+</select>
+<input type="checkbox" name="activity.kind:record:list" value="commit" checked="checked">Commits
+<input type="checkbox" name="activity.kind:record:list" value="bugs">Bugs
+<input type="checkbox" name="activity.kind:record:list" value="documentation">Commit
+<input type="checkbox" name="activity.kind:record:list" value="email">Email
+
+<script type="text/javascript" tal:attributes="src string:${portal_url}/++resource++jquery.flot-07.js"></script>
+<div id="placeholder" style="width:600px;height:300px"></div>
+<script type="text/javascript" tal:content="view/plot_js">
+</script>
+<script type="text/javascript">
+$.plot($("#placeholder"), [data], { xaxis: { mode : "time" } });
+</script>
+    </tal:main-macro>
+</metal:main>
+
+</body>
+</html>

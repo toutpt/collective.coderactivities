@@ -1,31 +1,23 @@
 <?xml version="1.0"?>
-<object name="collective.coderactivities.project" meta_type="Dexterity FTI"
+<object name="collective.coderactivities.github" meta_type="Dexterity FTI"
    xmlns:i18n="http://xml.zope.org/namespaces/i18n" i18n:domain="collective.coderactivities">
  
  <!-- Basic information -->
- <property name="title">Project</property>
- <property name="description" i18n:translate="">An IT Project</property>
+ <property name="title">Github</property>
+ <property name="description" i18n:translate="">A github user or organization</property>
  <property name="content_icon">folder_icon.gif</property>
- <property name="global_allow">True</property>
+ <property name="global_allow">False</property>
  <property name="allow_discussion">False</property>
  
  <property name="filter_content_types">True</property>
  <property name="allowed_content_types">
      <element value="collective.coderactivities.rss" />
-     <element value="collective.coderactivities.coder" />
-     <element value="collective.coderactivities.github" />
-     <element value="Link" />
-     <element value="Document" />
-     <element value="Folder" />
-     <element value="File" />
-     <element value="Event" />
  </property>
- 
+
  <property name="klass">plone.dexterity.content.Container</property>
  <property name="add_permission">cmf.AddPortalContent</property>
  
- <!-- Schema - here loaded from a file relative to a package -->
- <property name="schema">collective.coderactivities.project.IProject</property>
+ <property name="schema">collective.coderactivities.github.IGithub</property>
  
  <!-- List of enabled behaviors -->
  <property name="behaviors">
@@ -34,13 +26,10 @@
  </property>
  
  <!-- View information -->
- <property name="default_view">folder_listing</property>
+ <property name="default_view">github_view</property>
  <property name="default_view_fallback">True</property>
  <property name="view_methods">
-  <element value="folder_listing"/>
-  <element value="folder_tabular_view"/>
-  <element value="folder_summary_view"/>
-  <element value="project_view"/>
+  <element value="github_view"/>
  </property>
  
  <!-- Method aliases -->

@@ -31,31 +31,29 @@
     permission="zope2.View"
     />
   <browser:page
-    for="collective.coderactivities.imap.IIMAP"
-    name="imap_view"
-    class=".imap.IMAPView"
-    template="templates/imap_view.pt"
-    permission="zope2.View"
-    />
-  <browser:page
-    for="collective.coderactivities.imap.IIMAP"
-    name="imap_plone_svn_commit_view"
-    class=".imap.PloneSVNCommitActionBuilder"
-    template="templates/imap_view.pt"
-    permission="zope2.View"
-    />
-  <browser:page
-    for="*"
-    name="doc_imap_view"
-    class=".imap.DocIMAPView"
-    template="templates/doc_imap_view.pt"
+    for="collective.coderactivities.rss.IRSS"
+    name="rss_view"
+    class=".rss.RSSView"
+    template="templates/action_provider.pt"
     permission="zope2.View"
     />
   <browser:page
     for="collective.coderactivities.rss.IRSS"
-    name="rss_view"
-    class=".rss.RSSView"
-    template="templates/rss_view.pt"
+    name="rss_update_view"
+    class=".rss.RSSUpdateView"
+    permission="zope2.View"
+    />
+  <browser:page
+    for="collective.coderactivities.github.IGithub"
+    name="github_view"
+    class=".github.GithubView"
+    template="templates/action_provider.pt"
+    permission="zope2.View"
+    />
+  <browser:page
+    for="collective.coderactivities.github.IGithub"
+    name="github_update_view"
+    class=".github.GithubUpdateView"
     permission="zope2.View"
     />
 
@@ -82,5 +80,8 @@
     component=".vocabulary.ExtractorVocabulary"
     name="collective.coderactivities.vocabulary.extractor"
     />
-    
+  <browser:resource
+    name="jquery.flot-07.js"
+    file="jquery.flot.js"
+    />
 </configure>

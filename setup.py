@@ -29,6 +29,7 @@ setup(name='collective.coderactivities',
           'plone.app.dexterity',
           'feedparser',
           'collective.configviews',
+          'collective.github',
       ],
       entry_points="""
       # -*- Entry points: -*-
