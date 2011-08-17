@@ -7,11 +7,7 @@ from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 class ICoder(interface.Interface):
     """an identified person"""
     
-    fullname = schema.TextLine(title=u"Full name")
-    
-    ids = schema.List(title=u"Ids of this user throw action providers",
-                      value_type=schema.ASCIILine(title=u"Id"),
-                      required=False)
+    title = schema.TextLine(title=u"Full name")
 
 
 class CoderView(BrowserView):
